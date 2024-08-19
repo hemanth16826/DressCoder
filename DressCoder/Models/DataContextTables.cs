@@ -19,8 +19,9 @@ public partial class DataContextTables : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
-    public virtual DbSet<UserLogin> UserLogins { get; set; }
+    public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<UserLogin> UserLogins { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -33,6 +34,16 @@ public partial class DataContextTables : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.ProductSize)
                 .HasMaxLength(5)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4C8EE9AD44");
+
+            entity.Property(e => e.UserId).ValueGeneratedNever();
+            entity.Property(e => e.UserName)
+                .HasMaxLength(50)
                 .IsUnicode(false);
         });
 
